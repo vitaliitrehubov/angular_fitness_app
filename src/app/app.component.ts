@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+
+  myCustomEvent(msg: string) {
+    console.log('emitted some event', msg)
+  }
+
+  constructor() {
+    //setTimeout(() => this.isFooterShown = false, 2000)
+  }
 }
