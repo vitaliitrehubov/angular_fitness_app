@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth.service';
+import { AuthData } from '../auth-data.model';
 
 @Component({
   selector: 'app-signup',
@@ -7,12 +8,17 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-  @ViewChild('signupForm') signupForm: NgForm;
 
-  constructor() { }
+  constructor(
+    private authService: AuthService
+  ) { }
 
-  onSubmit() {
-    console.log('form: ', this.signupForm);
+
+
+  onFormSubmit(formData: AuthData) {
+    console.log('singing up... ', formData);
+    const { email, password } = formData;
+    this.authService.registerUser({ email, password });
   }
 
   ngOnInit() {

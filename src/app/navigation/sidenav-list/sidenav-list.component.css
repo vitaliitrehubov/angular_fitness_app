@@ -1,0 +1,7 @@
+a.sidenav-link-active {
+  background-color: #ccc;
+}
+
+a mat-icon {
+  margin-right: 10px;
+}

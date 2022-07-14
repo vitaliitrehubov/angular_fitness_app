@@ -7,3 +7,16 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
+
+mat-sidenav-container,
+mat-sidenav,
+mat-sidenav-content {
+  height: 100%;
+}
+
+mat-sidenav {
+  width: 250px;
+}
+
+
+

@@ -1,0 +1,19 @@
+<mat-nav-list>
+  <a
+    *ngFor="let link of navLinks"
+    (click)="onCloseSidenav()"
+    mat-list-item
+    [routerLink]="link.path"
+    routerLinkActive="sidenav-link-active"
+    [routerLinkActiveOptions]="{ exact: true }"
+  >
+    <mat-icon>{{ link.icon }}</mat-icon>
+    {{ link.label }}
+  </a>
+  <mat-list-item>
+    <button class="logout-btn" mat-icon-button>
+      <mat-icon>logout</mat-icon>
+      Log out
+    </button>
+  </mat-list-item>
+</mat-nav-list>
