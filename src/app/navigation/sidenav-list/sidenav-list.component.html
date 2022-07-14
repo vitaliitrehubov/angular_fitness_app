@@ -1,19 +1,37 @@
 <mat-nav-list>
-  <a
-    *ngFor="let link of navLinks"
-    (click)="onCloseSidenav()"
-    mat-list-item
-    [routerLink]="link.path"
-    routerLinkActive="sidenav-link-active"
-    [routerLinkActiveOptions]="{ exact: true }"
-  >
-    <mat-icon>{{ link.icon }}</mat-icon>
-    {{ link.label }}
-  </a>
-  <mat-list-item>
-    <button class="logout-btn" mat-icon-button>
-      <mat-icon>logout</mat-icon>
-      Log out
-    </button>
-  </mat-list-item>
+  <ng-template [ngIf]="isAuth">
+    <a
+      (click)="onCloseSidenav()"
+      routerLink="training"
+      routerLinkActive="sidenav-link-active"
+      mat-list-item
+    >
+      <mat-icon>fitness_center</mat-icon>Training
+    </a>
+    <mat-list-item>
+      <button (click)="onLogout()" class="logout-btn" mat-list-item>
+        <mat-icon>logout</mat-icon>
+        Log out
+      </button>
+    </mat-list-item>
+  </ng-template>
+
+  <ng-template [ngIf]="!isAuth">
+    <a
+      (click)="onCloseSidenav()"
+      routerLink="signup"
+      routerLinkActive="sidenav-link-active"
+      mat-list-item
+    >
+      <mat-icon>attach_email</mat-icon>Sign up
+     </a>
+    <a
+      (click)="onCloseSidenav()"
+      routerLink="login"
+      routerLinkActive="sidenav-link-active"
+      mat-list-item
+    >
+      <mat-icon>login</mat-icon>Log in
+    </a>
+  </ng-template>
 </mat-nav-list>

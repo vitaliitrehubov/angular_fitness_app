@@ -17,14 +17,20 @@
 
   <nav fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
     <ul fxLayout fxLayoutGap="20px">
-      <li
-        *ngFor="let link of navLinks"
-        [routerLink]="link.path"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        <a>{{ link.label }}</a>
-      </li>
+      <ng-template [ngIf]="isAuth">
+        <li routerLink="training" routerLinkActive="active">
+          <a>Training</a>
+        </li>
+        <li (click)="onLogout()" style="cursor: pointer; color: #ccc">Log out</li>
+      </ng-template>
+      <ng-template [ngIf]="!isAuth">
+        <li routerLink="signup" routerLinkActive="active">
+          <a>Sign up</a>
+        </li>
+        <li routerLink="login" routerLinkActive="active">
+          <a>Log in</a>
+        </li>
+      </ng-template>
     </ul>
   </nav>
 </mat-toolbar>

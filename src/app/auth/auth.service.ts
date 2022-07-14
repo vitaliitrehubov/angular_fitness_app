@@ -1,21 +1,24 @@
 import { Injectable } from "@angular/core";
+import { Router } from '@angular/router';
 import { Subject } from "rxjs";
 
-import { AuthData } from "./auth-data.model";
-import { User } from "./user.model";
+import { AuthData } from "./models/auth-data.model";
+import { User } from "./models/user.model";
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   authChange = new Subject<boolean>();
+  private user: User = null;
 
-  private user: User;
+  constructor(private router: Router) {}
 
   registerUser(data: AuthData) {
     this.user = {
       email: data.email,
       userId: String(Math.round(Math.random() * 1000))
     };
-    this.authChange.next(true);
+
+    this.authSuccessfully(true, ['training']);
   }
 
   login(data: AuthData) {
@@ -23,12 +26,13 @@ export class AuthService {
       email: data.email,
       userId: String(Math.round(Math.random() * 1000))
     };
-    this.authChange.next(true);
+
+    this.authSuccessfully(true, ['training']);
   }
 
   logout() {
     this.user = null;
-    this.authChange.next(false);
+    this.authSuccessfully(false, ['login']);
   }
 
   getUser() {
@@ -37,5 +41,10 @@ export class AuthService {
 
   isAuth() {
     return this.user !== null;
+  }
+
+  authSuccessfully(authStatus: boolean, redirectPath: string[]) {
+    this.authChange.next(authStatus);
+    this.router.navigate(redirectPath);
   }
 }

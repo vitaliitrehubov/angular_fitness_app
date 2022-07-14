@@ -3,4 +3,14 @@
 /* @import "@angular/material/prebuilt-themes/indigo-pink.css"; */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; padding: 0; font-family: Roboto, "Helvetica Neue", sans-serif; box-sizing: border-box; }
+
+mat-sidenav-container,
+mat-sidenav,
+mat-sidenav-content {
+  height: 100%;
+}
+
+mat-sidenav {
+  width: 250px;
+}

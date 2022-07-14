@@ -1,7 +1,9 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { StopTrainingComponent } from './stop-training.component';
 
+import { StopTrainingComponent } from './stop-training.component';
+import { TrainingService } from '../training.service';
+import { Exercise } from '../exercise.model';
 
 @Component({
   selector: 'app-current-training',
@@ -9,25 +11,28 @@ import { StopTrainingComponent } from './stop-training.component';
   styleUrls: ['./current-training.component.css']
 })
 export class CurrentTrainingComponent implements OnInit {
-  @Output() trainingExit = new EventEmitter<void>();
-  exerciseProgress = 0;
+  exercise: Exercise;
+  progress = 0;
   intervalId: number;
-  progressStep = 10;
 
-  constructor(private dialog: MatDialog) { }
+  constructor(
+    private dialog: MatDialog,
+    private trainingService: TrainingService
+  ) { }
 
   onStop() {
     this.clearTimer();
 
     const dialogRef = this.dialog.open(StopTrainingComponent, {
       data: {
-        progress: this.exerciseProgress
+        progress: this.progress,
+        exercise: this.exercise
       }
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.trainingExit.emit();
+        this.trainingService.cancelExercise(this.progress);
       } else {
         this.startOrResumeTimer();
       }
@@ -39,16 +44,21 @@ export class CurrentTrainingComponent implements OnInit {
   }
 
   startOrResumeTimer() {
-    this.intervalId = setInterval(() => {
-      this.exerciseProgress += this.progressStep;
+    const step = this.exercise.duration / 100 * 1000;
 
-      if(this.exerciseProgress >= 100) {
+    this.intervalId = setInterval(() => {
+      this.progress += 1;
+
+      if(this.progress >= 100) {
+        this.trainingService.completeExercise();
         this.clearTimer();
       }
-    }, 1000)
+    }, step)
   }
 
   ngOnInit() {
+    this.exercise = this.trainingService.getOngoingExercise();
+    console.log('exercise: ', this.exercise);
     this.startOrResumeTimer();
   }
 

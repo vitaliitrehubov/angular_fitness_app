@@ -12,6 +12,7 @@ a {
   color: #ccc;
 }
 
+a.active,
 li a.active,
 li.active a {
   color: #fff;

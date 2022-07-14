@@ -1,6 +1,7 @@
 import { Component, EventEmitter, ViewChild, Input, Output } from "@angular/core";
 import { NgForm } from '@angular/forms';
-import { AuthData } from '../auth-data.model';
+
+import { AuthData } from '../models/auth-data.model';
 
 @Component({
   selector: 'app-form',

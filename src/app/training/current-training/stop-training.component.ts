@@ -1,6 +1,8 @@
 import { Component, Inject } from "@angular/core";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 
+import { Exercise } from "../exercise.model";
+
 @Component({
   selector: 'app-stop-training',
   template: `
@@ -13,6 +15,6 @@ import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 })
 export class StopTrainingComponent {
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { progress: string }
+    @Inject(MAT_DIALOG_DATA) public data: { progress: string, exercise: Exercise }
   ) { }
 }

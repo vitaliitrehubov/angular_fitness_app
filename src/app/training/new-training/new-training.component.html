@@ -4,15 +4,21 @@
     <mat-card-content fxLayoutAlign="center">
       <mat-form-field appearance="fill">
         <mat-label>Select a type of exercises</mat-label>
-        <mat-select>
-          <mat-option *ngFor="let exercise of exercises" [value]="exercise">
-            {{ exercise}}
+        <mat-select #exerciseTypeSelect>
+          <mat-option *ngFor="let exercise of exercises" [value]="exercise.id">
+            {{ exercise.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions fxLayoutAlign="center">
-      <button mat-button type="submit" (click)="onStartTraining()">Start</button>
+      <button
+        (click)="onStartTraining(exerciseTypeSelect.value)"
+        [disabled]="!exerciseTypeSelect.value"
+        mat-raised-button
+        color="primary"
+        type="submit"
+      >Start</button>
     </mat-card-actions>
   </mat-card>
 </section>
