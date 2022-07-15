@@ -57,6 +57,7 @@ import { AuthData } from '../models/auth-data.model';
     </mat-checkbox>
 
     <button
+      *ngIf="!isLoading"
       mat-raised-button
       color="primary"
       type="submit"
@@ -64,13 +65,16 @@ import { AuthData } from '../models/auth-data.model';
     >
       Submit
     </button>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
   </form>
   `
 })
 export class AppForm {
   @Input('formType') formType: 'login' | 'signup' = 'login';
-  @ViewChild('form') form: NgForm;
+  @Input('isLoading') isLoading: boolean = false;
   @Output() formSubmit = new EventEmitter<AuthData>();
+
+  @ViewChild('form') form: NgForm;
 
   onSubmit() {
     this.formSubmit.emit(this.form.value);

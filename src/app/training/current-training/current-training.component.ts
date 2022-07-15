@@ -8,7 +8,7 @@ import { Exercise } from '../exercise.model';
 @Component({
   selector: 'app-current-training',
   templateUrl: './current-training.component.html',
-  styleUrls: ['./current-training.component.css']
+  styles: [`.current-training { padding: 30px; }`]
 })
 export class CurrentTrainingComponent implements OnInit {
   exercise: Exercise;

@@ -3,6 +3,6 @@ export interface Exercise {
   name: string;
   duration: number;
   calories: number;
-  date?: Date;
+  date?: Date | string;
   state?: 'completed' | 'cancelled' | null;
 }

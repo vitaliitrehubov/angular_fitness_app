@@ -6,8 +6,19 @@ import { TrainingService } from './training.service';
 
 @Component({
   selector: 'app-training',
-  templateUrl: './training.component.html',
-  styleUrls: ['./training.component.css']
+  template: `
+    <mat-tab-group *ngIf="!ongoingTraining; else currentTraining">
+      <mat-tab label="New Training">
+        <app-new-training></app-new-training>
+      </mat-tab>
+      <mat-tab label="Past Trainings">
+        <app-past-trainings></app-past-trainings>
+      </mat-tab>
+    </mat-tab-group>
+    <ng-template #currentTraining>
+      <app-current-training></app-current-training>
+    </ng-template>
+  `
 })
 export class TrainingComponent implements OnInit, OnDestroy {
   ongoingTraining: Exercise;
@@ -21,8 +32,6 @@ export class TrainingComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if(this.exerciseSubscription) {
-      this.exerciseSubscription.unsubscribe();
-    }
+    this.exerciseSubscription.unsubscribe();
   }
 }

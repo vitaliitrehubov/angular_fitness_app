@@ -5,8 +5,7 @@ import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-sidenav-list',
-  templateUrl: './sidenav-list.component.html',
-  styleUrls: ['./sidenav-list.component.css']
+  templateUrl: './sidenav-list.component.html'
 })
 export class SidenavListComponent implements OnInit, OnDestroy {
   @Output() sidenavClose = new EventEmitter<void>();
@@ -33,8 +32,6 @@ export class SidenavListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if(this.authSubscription) {
-      this.authSubscription.unsubscribe();
-    }
+    this.authSubscription.unsubscribe();
   }
 }

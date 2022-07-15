@@ -1,39 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+
 import { AuthService } from '../auth.service';
 import { AuthData } from '../models/auth-data.model';
+import { UIService } from '../ui.service';
 
 @Component({
   selector: 'app-signup',
   template: `
     <section>
       <h2>Signup Form</h2>
-      <app-form (formSubmit)="onFormSubmit($event)" formType="signup"></app-form>
+      <app-form
+        (formSubmit)="onFormSubmit($event)"
+        [isLoading]="isLoading"
+        formType="signup"
+      ></app-form>
     </section>
-  `,
-  styles: [`
-    mat-form-field {
-      width: 300px;
-    }
-    h2 {
-      text-align: center;
-    }
-  `]
+  `
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, OnDestroy {
+  isLoading = false;
+  loadingSubscription: Subscription;
 
   constructor(
+    private uiService: UIService,
     private authService: AuthService
   ) { }
 
-
-
   onFormSubmit(formData: AuthData) {
-    console.log('singing up... ', formData);
     const { email, password } = formData;
     this.authService.registerUser({ email, password });
   }
 
   ngOnInit() {
+    this.loadingSubscription = this.uiService.loadingStateChanged.subscribe(
+      (loadingState: boolean) => this.isLoading = loadingState
+    );
   }
 
+  ngOnDestroy() {
+    this.loadingSubscription.unsubscribe();
+  }
 }

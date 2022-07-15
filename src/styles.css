@@ -14,3 +14,43 @@ mat-sidenav-content {
 mat-sidenav {
   width: 250px;
 }
+
+mat-form-field {
+  width: 300px;
+}
+h1, h2, h3, h4, h5, h6 {
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+}
+
+.mobile-menu-toggle {
+  margin-right: 20px;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+  color: #ccc;
+}
+
+a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+a.active,
+li a.active,
+li.active a {
+  color: #fff;
+}
+
+a.sidenav-link-active {
+  background-color: #ccc;
+}
+
+a mat-icon {
+  margin-right: 10px;
+}
